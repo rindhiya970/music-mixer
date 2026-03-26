@@ -1,0 +1,75 @@
+.player {
+  text-align: center;
+  padding: 2rem;
+  background: #fffbe6;
+  margin: 1rem;
+  border-radius: 12px;
+  box-shadow: 5px 5px 0px #333;
+  font-family: "Press Start 2P", cursive;
+}
+
+.album-cover {
+  width: 180px;
+  height: 180px;
+  border-radius: 10px;
+  margin: 1rem auto;
+  border: 5px solid #ff6f61;
+  box-shadow: 4px 4px 0px #333;
+  transition: transform 0.4s ease-in-out;
+}
+
+.album-cover.playing {
+  animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.progress-container {
+  width: 80%;
+  height: 12px;
+  background: #eee;
+  border: 3px solid #333;
+  border-radius: 10px;
+  margin: 1rem auto;
+  cursor: pointer;
+}
+
+.progress {
+  height: 100%;
+  background: #ff6f61;
+  border-radius: 10px;
+}
+
+.time {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem auto;
+  width: 80%;
+  font-size: 0.8rem;
+}
+
+.controls button {
+  margin: 0.5rem;
+  font-size: 1.5rem;
+  background: #ff6f61;
+  border: 3px solid #333;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 3px 3px 0px #333;
+  transition: transform 0.2s;
+}
+
+.controls button:hover {
+  transform: translateY(-3px);
+}
+
+.play-btn {
+  background: #ffd700;
+  color: #333;
+}

@@ -1,0 +1,10 @@
+.header {
+  text-align: center;
+  padding: 1rem;
+  background: #ff6f61;
+  color: white;
+  border-bottom: 4px solid #333;
+  font-size: 1.2rem;
+  font-family: "Press Start 2P", cursive;
+  text-shadow: 2px 2px #000;
+}

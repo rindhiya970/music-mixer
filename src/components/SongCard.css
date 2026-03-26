@@ -1,0 +1,40 @@
+.song-card {
+  width: 140px;
+  background: #fff;
+  border: 3px solid #333;
+  border-radius: 10px;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+  box-shadow: 3px 3px 0px #333;
+  text-align: center;
+  font-family: "Press Start 2P", cursive;
+}
+
+.song-card:hover {
+  transform: scale(1.1);
+  background: #ffe0f0;
+}
+
+.song-card img {
+  width: 100%;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  border: 2px solid #ff6f61;
+}
+
+.song-card.current {
+  background: #ffd700;
+  border-color: #ff6f61;
+}
+
+.song-info h4 {
+  margin: 0.2rem 0;
+  font-size: 0.8rem;
+}
+
+.song-info p {
+  margin: 0;
+  font-size: 0.7rem;
+  color: #555;
+}
