@@ -1,4 +1,5 @@
 import SongCard from "./SongCard";
+import "./SongList.css";
 
 function SongList({ songs, currentSongIndex, setCurrentSongIndex, setIsPlaying }) {
   const handlePlay = (id) => {
