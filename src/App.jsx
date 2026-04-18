@@ -1,15 +1,16 @@
 import { useState } from "react";
 import Header from "./components/Header";
 import SongList from "./components/SongList";
-import Player from "./components/Player.jsx";
+import Player from "./components/Player";
 import { songs } from "./data";
+import "./App.css";
 
 function App() {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
   return (
-    <div>
+    <div className="app-layout">
       <Header />
       <SongList
         songs={songs}
