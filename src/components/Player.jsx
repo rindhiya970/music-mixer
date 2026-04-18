@@ -1,29 +1,47 @@
 import { useEffect, useRef, useState } from "react";
 import { FaPlay, FaPause, FaForward, FaBackward } from "react-icons/fa";
+import "./Player.css";
 
 function Player({ song, isPlaying, setIsPlaying, setCurrentSongIndex, songs }) {
   const audioRef = useRef(null);
-  const [progress, setProgress] = useState(0); // 0 to 100
+  const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  useEffect(() => {
-    if (isPlaying) audioRef.current.play();
-    else audioRef.current.pause();
-  }, [isPlaying, song]);
-
-  // Update progress and time
+  // Reload audio and play/pause when song changes
   useEffect(() => {
     const audio = audioRef.current;
-    const updateProgress = () => {
+    audio.src = song.url;
+    audio.load();
+    if (isPlaying) {
+      audio.play().catch(() => {});
+    }
+  }, [song]);
+
+  // Play/pause toggle without reloading
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (isPlaying) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  }, [isPlaying]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    const update = () => {
       setCurrentTime(audio.currentTime);
       setDuration(audio.duration || 0);
-      setProgress((audio.currentTime / audio.duration) * 100);
+      setProgress((audio.currentTime / (audio.duration || 1)) * 100);
     };
-    audio.addEventListener("timeupdate", updateProgress);
-
-    return () => audio.removeEventListener("timeupdate", updateProgress);
-  }, [song]);
+    audio.addEventListener("timeupdate", update);
+    audio.addEventListener("ended", handleNext);
+    return () => {
+      audio.removeEventListener("timeupdate", update);
+      audio.removeEventListener("ended", handleNext);
+    };
+  }, [song, songs]);
 
   const handleNext = () => {
     setCurrentSongIndex((prev) => (prev + 1) % songs.length);
@@ -35,61 +53,51 @@ function Player({ song, isPlaying, setIsPlaying, setCurrentSongIndex, songs }) {
     setIsPlaying(true);
   };
 
-  // Seek when user clicks progress bar
   const handleSeek = (e) => {
-    const rect = e.target.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const width = rect.width;
-    const seekTime = (clickX / width) * duration;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const seekTime = ((e.clientX - rect.left) / rect.width) * duration;
     audioRef.current.currentTime = seekTime;
   };
 
-  // Format time in mm:ss
-  const formatTime = (time) => {
-    if (isNaN(time)) return "0:00";
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  const formatTime = (t) => {
+    if (isNaN(t)) return "0:00";
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    return `${m}:${s < 10 ? "0" : ""}${s}`;
   };
 
   return (
-    <div className="player">
-      {/* Animated album cover */}
-      <img
-        src={song.cover}
-        alt={song.title}
-        className={`album-cover ${isPlaying ? "playing" : ""}`}
-      />
+    <div className="player" style={{ "--accent": song.color }}>
+      <div className={`vinyl-wrapper ${isPlaying ? "spinning" : ""}`}>
+        <img src={song.cover} alt={song.title} className="album-cover" />
+        <div className="vinyl-hole" />
+      </div>
 
-      <h3>{song.title}</h3>
-      <p>{song.artist}</p>
+      <h3 className="song-title">{song.title}</h3>
+      <p className="song-artist">{song.artist}</p>
 
-      {/* Progress Bar */}
       <div className="progress-container" onClick={handleSeek}>
-        <div
-          className="progress"
-          style={{ width: `${progress}%` }}
-        ></div>
+        <div className="progress" style={{ width: `${progress}%` }} />
+        <div className="progress-thumb" style={{ left: `${progress}%` }} />
       </div>
       <div className="time">
         <span>{formatTime(currentTime)}</span>
         <span>{formatTime(duration)}</span>
       </div>
 
-      {/* Controls */}
-      <div>
-        <button onClick={handlePrev}>
+      <div className="controls">
+        <button className="ctrl-btn" onClick={handlePrev} aria-label="Previous">
           <FaBackward />
         </button>
-        <button onClick={() => setIsPlaying(!isPlaying)}>
+        <button className="ctrl-btn play-btn" onClick={() => setIsPlaying(!isPlaying)} aria-label={isPlaying ? "Pause" : "Play"}>
           {isPlaying ? <FaPause /> : <FaPlay />}
         </button>
-        <button onClick={handleNext}>
+        <button className="ctrl-btn" onClick={handleNext} aria-label="Next">
           <FaForward />
         </button>
       </div>
 
-      <audio ref={audioRef} src={song.url}></audio>
+      <audio ref={audioRef} />
     </div>
   );
 }

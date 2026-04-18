@@ -1,75 +1,156 @@
 .player {
+  --accent: #ff6f61;
   text-align: center;
-  padding: 2rem;
-  background: #fffbe6;
-  margin: 1rem;
-  border-radius: 12px;
-  box-shadow: 5px 5px 0px #333;
-  font-family: "Press Start 2P", cursive;
+  padding: 2rem 2rem 2.5rem;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(16px);
+  margin: 1.5rem auto;
+  border-radius: 28px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.10);
+  border: 2.5px solid rgba(255,255,255,0.45);
+  max-width: 380px;
+  font-family: 'Fredoka One', cursive;
+  transition: box-shadow 0.4s;
+}
+
+/* Vinyl record wrapper */
+.vinyl-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 0 auto 1.2rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 8px rgba(0,0,0,0.12), 0 0 30px var(--accent);
+  transition: box-shadow 0.4s;
+}
+
+.vinyl-wrapper.spinning {
+  animation: vinyl-spin 4s linear infinite;
+  box-shadow: 0 0 0 8px rgba(0,0,0,0.15), 0 0 40px var(--accent), 0 0 80px var(--accent);
+}
+
+@keyframes vinyl-spin {
+  to { transform: rotate(360deg); }
 }
 
 .album-cover {
-  width: 180px;
-  height: 180px;
-  border-radius: 10px;
-  margin: 1rem auto;
-  border: 5px solid #ff6f61;
-  box-shadow: 4px 4px 0px #333;
-  transition: transform 0.4s ease-in-out;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
 }
 
-.album-cover.playing {
-  animation: spin 5s linear infinite;
+.vinyl-hole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid rgba(0,0,0,0.15);
+  pointer-events: none;
 }
 
-@keyframes spin {
-  100% {
-    transform: rotate(360deg);
-  }
+.song-title {
+  margin: 0.3rem 0 0.1rem;
+  font-size: 1.3rem;
+  color: #222;
+  letter-spacing: 0.5px;
 }
 
+.song-artist {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Progress bar */
 .progress-container {
-  width: 80%;
-  height: 12px;
-  background: #eee;
-  border: 3px solid #333;
+  position: relative;
+  width: 82%;
+  height: 10px;
+  background: rgba(0,0,0,0.12);
   border-radius: 10px;
-  margin: 1rem auto;
+  margin: 0.5rem auto 0;
   cursor: pointer;
+  overflow: visible;
 }
 
 .progress {
   height: 100%;
-  background: #ff6f61;
+  background: linear-gradient(90deg, var(--accent), #ffcc70);
   border-radius: 10px;
+  transition: width 0.1s linear;
+}
+
+.progress-thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2.5px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  pointer-events: none;
+  transition: left 0.1s linear;
 }
 
 .time {
   display: flex;
   justify-content: space-between;
-  margin: 0.5rem auto;
-  width: 80%;
-  font-size: 0.8rem;
+  width: 82%;
+  margin: 0.3rem auto 1.2rem;
+  font-size: 0.82rem;
+  color: #666;
 }
 
-.controls button {
-  margin: 0.5rem;
-  font-size: 1.5rem;
-  background: #ff6f61;
-  border: 3px solid #333;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+/* Controls */
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ctrl-btn {
+  background: rgba(255,255,255,0.6);
+  border: 2.5px solid rgba(0,0,0,0.1);
+  color: #444;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   cursor: pointer;
-  box-shadow: 3px 3px 0px #333;
-  transition: transform 0.2s;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transition: transform 0.18s, background 0.18s, box-shadow 0.18s;
 }
 
-.controls button:hover {
-  transform: translateY(-3px);
+.ctrl-btn:hover {
+  transform: scale(1.15);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
 }
 
 .play-btn {
-  background: #ffd700;
-  color: #333;
+  background: var(--accent);
+  color: #fff;
+  width: 62px;
+  height: 62px;
+  font-size: 1.3rem;
+  border: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.play-btn:hover {
+  background: var(--accent);
+  filter: brightness(1.1);
+  transform: scale(1.18);
 }

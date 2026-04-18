@@ -1,7 +1,11 @@
+import "./Header.css";
+
 function Header() {
   return (
-    <header style={{ textAlign: "center", padding: "1rem" }}>
-      <h1>My Music Player</h1>
+    <header className="header">
+      <div className="header-emoji">🎵</div>
+      <h1>Vibe Player</h1>
+      <p className="header-sub">Turn it up ✨</p>
     </header>
   );
 }
