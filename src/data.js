@@ -5,7 +5,9 @@ export const songs = [
     artist: "Luna Eclipse",
     url: "/songs/song1.mp3",
     cover: "/images/song1.jpg",
-    color: "#ff6f61"
+    color: "#ff6f61",
+    genre: "Electronic",
+    mood: "Chill"
   },
   {
     id: 2,
@@ -13,7 +15,9 @@ export const songs = [
     artist: "Neon Waves",
     url: "/songs/song2.mp3",
     cover: "/images/song2.jpeg",
-    color: "#a78bfa"
+    color: "#a78bfa",
+    genre: "Electronic",
+    mood: "Energetic"
   },
   {
     id: 3,
@@ -21,7 +25,9 @@ export const songs = [
     artist: "Coastal Vibes",
     url: "/songs/song3.mp3",
     cover: "/images/song3.jpeg",
-    color: "#34d399"
+    color: "#34d399",
+    genre: "Pop",
+    mood: "Happy"
   },
   {
     id: 4,
@@ -29,7 +35,9 @@ export const songs = [
     artist: "Sunset Collective",
     url: "/songs/song4.mp3",
     cover: "/images/song4.jpeg",
-    color: "#fbbf24"
+    color: "#fbbf24",
+    genre: "Indie",
+    mood: "Chill"
   },
   {
     id: 5,
@@ -37,7 +45,9 @@ export const songs = [
     artist: "City Lights",
     url: "/songs/song5.mp3",
     cover: "/images/song1.jpg",
-    color: "#ef4444"
+    color: "#ef4444",
+    genre: "Hip Hop",
+    mood: "Energetic"
   },
   {
     id: 6,
@@ -45,7 +55,9 @@ export const songs = [
     artist: "Aqua Sound",
     url: "/songs/song6.mp3",
     cover: "/images/song2.jpeg",
-    color: "#3b82f6"
+    color: "#3b82f6",
+    genre: "Ambient",
+    mood: "Relaxing"
   },
   {
     id: 7,
@@ -53,7 +65,9 @@ export const songs = [
     artist: "Alpine Beats",
     url: "/songs/song7.mp3",
     cover: "/images/song3.jpeg",
-    color: "#10b981"
+    color: "#10b981",
+    genre: "Folk",
+    mood: "Peaceful"
   },
   {
     id: 8,
@@ -61,7 +75,9 @@ export const songs = [
     artist: "Cosmic Harmony",
     url: "/songs/song8.mp3",
     cover: "/images/song4.jpeg",
-    color: "#8b5cf6"
+    color: "#8b5cf6",
+    genre: "Classical",
+    mood: "Romantic"
   },
   {
     id: 9,
@@ -69,7 +85,9 @@ export const songs = [
     artist: "Sahara Sounds",
     url: "/songs/song9.mp3",
     cover: "/images/song1.jpg",
-    color: "#f59e0b"
+    color: "#f59e0b",
+    genre: "World",
+    mood: "Mysterious"
   },
   {
     id: 10,
@@ -77,7 +95,9 @@ export const songs = [
     artist: "Retro Wave",
     url: "/songs/song10.mp3",
     cover: "/images/song2.jpeg",
-    color: "#ec4899"
+    color: "#ec4899",
+    genre: "Synthwave",
+    mood: "Energetic"
   },
   {
     id: 11,
@@ -85,7 +105,9 @@ export const songs = [
     artist: "Nature's Call",
     url: "/songs/song11.mp3",
     cover: "/images/song3.jpeg",
-    color: "#059669"
+    color: "#059669",
+    genre: "Ambient",
+    mood: "Peaceful"
   },
   {
     id: 12,
@@ -93,7 +115,9 @@ export const songs = [
     artist: "Storm Chasers",
     url: "/songs/song12.mp3",
     cover: "/images/song4.jpeg",
-    color: "#6366f1"
+    color: "#6366f1",
+    genre: "Rock",
+    mood: "Intense"
   },
   {
     id: 13,
@@ -101,7 +125,9 @@ export const songs = [
     artist: "Spring Melody",
     url: "/songs/song13.mp3",
     cover: "/images/song1.jpg",
-    color: "#f472b6"
+    color: "#f472b6",
+    genre: "Pop",
+    mood: "Happy"
   },
   {
     id: 14,
@@ -109,7 +135,9 @@ export const songs = [
     artist: "Fast Lane",
     url: "/songs/song14.mp3",
     cover: "/images/song2.jpeg",
-    color: "#dc2626"
+    color: "#dc2626",
+    genre: "Electronic",
+    mood: "Intense"
   },
   {
     id: 15,
@@ -117,7 +145,9 @@ export const songs = [
     artist: "Classical Remix",
     url: "/songs/song15.mp3",
     cover: "/images/song3.jpeg",
-    color: "#7c3aed"
+    color: "#7c3aed",
+    genre: "Classical",
+    mood: "Melancholic"
   },
   {
     id: 16,
@@ -125,7 +155,9 @@ export const songs = [
     artist: "Island Groove",
     url: "/songs/song16.mp3",
     cover: "/images/song4.jpeg",
-    color: "#14b8a6"
+    color: "#14b8a6",
+    genre: "Reggae",
+    mood: "Happy"
   },
   {
     id: 17,
@@ -133,7 +165,9 @@ export const songs = [
     artist: "Digital Age",
     url: "/songs/song17.mp3",
     cover: "/images/song1.jpg",
-    color: "#06b6d4"
+    color: "#06b6d4",
+    genre: "Synthwave",
+    mood: "Futuristic"
   },
   {
     id: 18,
@@ -141,7 +175,9 @@ export const songs = [
     artist: "Seasonal Sounds",
     url: "/songs/song18.mp3",
     cover: "/images/song2.jpeg",
-    color: "#ea580c"
+    color: "#ea580c",
+    genre: "Folk",
+    mood: "Melancholic"
   },
   {
     id: 19,
@@ -149,7 +185,9 @@ export const songs = [
     artist: "Smooth Operators",
     url: "/songs/song19.mp3",
     cover: "/images/song3.jpeg",
-    color: "#4f46e5"
+    color: "#4f46e5",
+    genre: "Jazz",
+    mood: "Chill"
   },
   {
     id: 20,
@@ -157,6 +195,8 @@ export const songs = [
     artist: "Epic Orchestra",
     url: "/songs/song20.mp3",
     cover: "/images/song4.jpeg",
-    color: "#dc2626"
+    color: "#dc2626",
+    genre: "Orchestral",
+    mood: "Epic"
   }
 ];
