@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 280px; /* Space for fixed player */
+  padding-bottom: 320px;
+  min-height: 100vh;
 }
 
 .song-list {
@@ -14,51 +15,102 @@
   width: 100%;
 }
 
-@media (max-width: 768px) {
+.no-results {
+  text-align: center;
+  padding: 5rem 2rem;
+  color: rgba(255,255,255,0.8);
+  animation: fade-in 0.6s ease;
+  width: 100%;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.no-results-icon {
+  font-size: 6rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.7;
+  animation: float 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+.no-results p {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0 0.8rem;
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.no-results span {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.75);
+  font-weight: 400;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
   .app-layout {
     padding-bottom: 300px;
   }
 }
 
-@media (max-width: 480px) {
+/* Mobile landscape and portrait */
+@media (max-width: 768px) {
   .app-layout {
-    padding-bottom: 320px;
+    padding-bottom: 340px;
+  }
+  
+  .no-results {
+    padding: 4rem 1.5rem;
+  }
+  
+  .no-results-icon {
+    font-size: 5rem;
+  }
+  
+  .no-results p {
+    font-size: 1.5rem;
+  }
+  
+  .no-results span {
+    font-size: 1rem;
   }
 }
 
-
-.no-results {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: rgba(255,255,255,0.8);
-  animation: fade-in 0.5s ease;
+/* Small mobile */
+@media (max-width: 480px) {
+  .app-layout {
+    padding-bottom: 360px;
+  }
+  
+  .no-results {
+    padding: 3rem 1rem;
+  }
+  
+  .no-results-icon {
+    font-size: 4rem;
+  }
+  
+  .no-results p {
+    font-size: 1.3rem;
+  }
+  
+  .no-results span {
+    font-size: 0.9rem;
+  }
 }
 
-@keyframes fade-in {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.no-results-icon {
-  font-size: 5rem;
-  margin-bottom: 1rem;
-  opacity: 0.6;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-
-.no-results p {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0 0 0.5rem;
-  color: rgba(255,255,255,0.95);
-}
-
-.no-results span {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.7);
+/* Extra small devices */
+@media (max-width: 360px) {
+  .app-layout {
+    padding-bottom: 380px;
+  }
 }
