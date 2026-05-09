@@ -1,8 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { FaPlay, FaPause, FaForward, FaBackward } from "react-icons/fa";
+import { FaPlay, FaPause, FaForward, FaBackward, FaRandom, FaRedoAlt } from "react-icons/fa";
 import "./Player.css";
 
-function Player({ song, isPlaying, setIsPlaying, setCurrentSongIndex, songs }) {
+function Player({ 
+  song, 
+  isPlaying, 
+  setIsPlaying, 
+  setCurrentSongIndex, 
+  songs,
+  isShuffle,
+  setIsShuffle,
+  repeatMode,
+  setRepeatMode,
+  playQueue,
+  currentSongIndex
+}) {
   const audioRef = useRef(null);
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -36,27 +48,68 @@ function Player({ song, isPlaying, setIsPlaying, setCurrentSongIndex, songs }) {
       setProgress((audio.currentTime / (audio.duration || 1)) * 100);
     };
     audio.addEventListener("timeupdate", update);
-    audio.addEventListener("ended", handleNext);
+    audio.addEventListener("ended", handleEnded);
     return () => {
       audio.removeEventListener("timeupdate", update);
-      audio.removeEventListener("ended", handleNext);
+      audio.removeEventListener("ended", handleEnded);
     };
-  }, [song, songs]);
+  }, [song, songs, repeatMode, isShuffle, playQueue, currentSongIndex]);
+
+  const handleEnded = () => {
+    if (repeatMode === "one") {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    } else {
+      handleNext();
+    }
+  };
 
   const handleNext = () => {
-    setCurrentSongIndex((prev) => (prev + 1) % songs.length);
+    if (isShuffle) {
+      const currentQueueIndex = playQueue.indexOf(currentSongIndex);
+      const nextQueueIndex = (currentQueueIndex + 1) % playQueue.length;
+      setCurrentSongIndex(playQueue[nextQueueIndex]);
+    } else {
+      const nextIndex = (currentSongIndex + 1) % songs.length;
+      setCurrentSongIndex(nextIndex);
+      if (nextIndex === 0 && repeatMode === "off") {
+        setIsPlaying(false);
+        return;
+      }
+    }
     setIsPlaying(true);
   };
 
   const handlePrev = () => {
-    setCurrentSongIndex((prev) => (prev - 1 + songs.length) % songs.length);
-    setIsPlaying(true);
+    if (audioRef.current.currentTime > 3) {
+      audioRef.current.currentTime = 0;
+    } else {
+      if (isShuffle) {
+        const currentQueueIndex = playQueue.indexOf(currentSongIndex);
+        const prevQueueIndex = (currentQueueIndex - 1 + playQueue.length) % playQueue.length;
+        setCurrentSongIndex(playQueue[prevQueueIndex]);
+      } else {
+        setCurrentSongIndex((prev) => (prev - 1 + songs.length) % songs.length);
+      }
+      setIsPlaying(true);
+    }
   };
 
   const handleSeek = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const seekTime = ((e.clientX - rect.left) / rect.width) * duration;
     audioRef.current.currentTime = seekTime;
+  };
+
+  const toggleShuffle = () => {
+    setIsShuffle(!isShuffle);
+  };
+
+  const toggleRepeat = () => {
+    const modes = ["off", "all", "one"];
+    const currentIndex = modes.indexOf(repeatMode);
+    const nextIndex = (currentIndex + 1) % modes.length;
+    setRepeatMode(modes[nextIndex]);
   };
 
   const formatTime = (t) => {
@@ -86,6 +139,14 @@ function Player({ song, isPlaying, setIsPlaying, setCurrentSongIndex, songs }) {
       </div>
 
       <div className="controls">
+        <button 
+          className={`ctrl-btn shuffle-btn ${isShuffle ? "active" : ""}`}
+          onClick={toggleShuffle} 
+          aria-label="Shuffle"
+          title="Shuffle"
+        >
+          <FaRandom />
+        </button>
         <button className="ctrl-btn" onClick={handlePrev} aria-label="Previous">
           <FaBackward />
         </button>
@@ -94,6 +155,15 @@ function Player({ song, isPlaying, setIsPlaying, setCurrentSongIndex, songs }) {
         </button>
         <button className="ctrl-btn" onClick={handleNext} aria-label="Next">
           <FaForward />
+        </button>
+        <button 
+          className={`ctrl-btn repeat-btn ${repeatMode !== "off" ? "active" : ""}`}
+          onClick={toggleRepeat} 
+          aria-label={`Repeat: ${repeatMode}`}
+          title={`Repeat: ${repeatMode}`}
+        >
+          <FaRedoAlt />
+          {repeatMode === "one" && <span className="repeat-indicator">1</span>}
         </button>
       </div>
 
