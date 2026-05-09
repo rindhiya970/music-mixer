@@ -1,17 +1,16 @@
+import { FaPlus, FaCheck } from "react-icons/fa";
 import "./SongCard.css";
 
-function SongCard({ song, isCurrent, handlePlay }) {
+function SongCard({ song, isCurrent, handlePlay, addToPlaylist, isInPlaylist }) {
   return (
     <div
-      onClick={() => handlePlay(song.id)}
       className={`song-card ${isCurrent ? "current" : ""}`}
       style={{ "--card-accent": song.color }}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === "Enter" && handlePlay(song.id)}
       aria-label={`Play ${song.title} by ${song.artist}`}
     >
-      <div className="card-img-wrap">
+      <div className="card-img-wrap" onClick={() => handlePlay(song.id)}>
         <img src={song.cover} alt={song.title} />
         <div className="play-overlay">▶</div>
       </div>
@@ -19,6 +18,17 @@ function SongCard({ song, isCurrent, handlePlay }) {
         <h4>{song.title}</h4>
         <p>{song.artist}</p>
       </div>
+      <button 
+        className={`add-to-playlist-btn ${isInPlaylist ? "added" : ""}`}
+        onClick={(e) => {
+          e.stopPropagation();
+          addToPlaylist(song.id);
+        }}
+        aria-label={isInPlaylist ? "Added to playlist" : "Add to playlist"}
+        title={isInPlaylist ? "Added to playlist" : "Add to playlist"}
+      >
+        {isInPlaylist ? <FaCheck /> : <FaPlus />}
+      </button>
       {isCurrent && <div className="now-playing-bar"><span /><span /><span /></div>}
     </div>
   );
