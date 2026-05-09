@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
+import FilterBar from "./components/FilterBar";
+import ResultsCounter from "./components/ResultsCounter";
 import SongList from "./components/SongList";
 import Player from "./components/Player";
 import Playlist from "./components/Playlist";
@@ -16,12 +18,39 @@ function App() {
   const [playQueue, setPlayQueue] = useState([...Array(songs.length).keys()]);
   const [showPlaylist, setShowPlaylist] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("All");
+  const [selectedMood, setSelectedMood] = useState("All");
+  const [sortBy, setSortBy] = useState("default");
 
-  // Filter songs based on search query
-  const filteredSongs = songs.filter(song => 
-    song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    song.artist.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter and sort songs
+  const getFilteredAndSortedSongs = () => {
+    let filtered = songs.filter(song => {
+      const matchesSearch = 
+        song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        song.artist.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesGenre = selectedGenre === "All" || song.genre === selectedGenre;
+      const matchesMood = selectedMood === "All" || song.mood === selectedMood;
+      
+      return matchesSearch && matchesGenre && matchesMood;
+    });
+
+    // Sort songs
+    if (sortBy === "title") {
+      filtered = [...filtered].sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === "artist") {
+      filtered = [...filtered].sort((a, b) => a.artist.localeCompare(b.artist));
+    } else if (sortBy === "genre") {
+      filtered = [...filtered].sort((a, b) => a.genre.localeCompare(b.genre));
+    } else if (sortBy === "mood") {
+      filtered = [...filtered].sort((a, b) => a.mood.localeCompare(b.mood));
+    }
+
+    return filtered;
+  };
+
+  const filteredSongs = getFilteredAndSortedSongs();
+  const hasActiveFilters = searchQuery || selectedGenre !== "All" || selectedMood !== "All" || sortBy !== "default";
 
   // Update play queue when shuffle changes
   useEffect(() => {
@@ -62,11 +91,22 @@ function App() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
+      <FilterBar
+        selectedGenre={selectedGenre}
+        setSelectedGenre={setSelectedGenre}
+        selectedMood={selectedMood}
+        setSelectedMood={setSelectedMood}
+        sortBy={sortBy}
+        setSortBy={setSortBy}
+      />
+      {hasActiveFilters && filteredSongs.length > 0 && (
+        <ResultsCounter count={filteredSongs.length} total={songs.length} />
+      )}
       {filteredSongs.length === 0 ? (
         <div className="no-results">
           <div className="no-results-icon">🔍</div>
           <p>No songs found</p>
-          <span>Try searching for something else</span>
+          <span>Try adjusting your search or filters</span>
         </div>
       ) : (
         <SongList
