@@ -125,6 +125,52 @@
   white-space: nowrap;
 }
 
+.add-to-playlist-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  border: 2px solid rgba(0,0,0,0.1);
+  color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: scale(0.8);
+  z-index: 10;
+}
+
+.song-card:hover .add-to-playlist-btn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.add-to-playlist-btn:hover {
+  background: var(--card-accent);
+  color: #fff;
+  border-color: var(--card-accent);
+  transform: scale(1.1);
+}
+
+.add-to-playlist-btn.added {
+  background: var(--card-accent);
+  color: #fff;
+  border-color: var(--card-accent);
+  opacity: 1;
+  transform: scale(1);
+}
+
+.add-to-playlist-btn.added:hover {
+  background: #34d399;
+  border-color: #34d399;
+}
+
 /* Animated equalizer bars for currently playing */
 .now-playing-bar {
   display: flex;
