@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { FaPlay, FaPause, FaForward, FaBackward, FaRandom, FaRedoAlt } from "react-icons/fa";
+import { FaPlay, FaPause, FaForward, FaBackward, FaRandom, FaRedoAlt, FaVolumeUp, FaVolumeMute } from "react-icons/fa";
 import "./Player.css";
 
 function Player({ 
@@ -19,12 +19,16 @@ function Player({
   const [progress, setProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(70);
+  const [isMuted, setIsMuted] = useState(false);
+  const [showVolume, setShowVolume] = useState(false);
 
   // Reload audio and play/pause when song changes
   useEffect(() => {
     const audio = audioRef.current;
     audio.src = song.url;
     audio.load();
+    audio.volume = volume / 100;
     if (isPlaying) {
       audio.play().catch(() => {});
     }
@@ -39,6 +43,13 @@ function Player({
       audio.pause();
     }
   }, [isPlaying]);
+
+  // Update volume
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : volume / 100;
+    }
+  }, [volume, isMuted]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -101,6 +112,18 @@ function Player({
     audioRef.current.currentTime = seekTime;
   };
 
+  const handleVolumeChange = (e) => {
+    const newVolume = parseInt(e.target.value);
+    setVolume(newVolume);
+    if (newVolume > 0 && isMuted) {
+      setIsMuted(false);
+    }
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+  };
+
   const toggleShuffle = () => {
     setIsShuffle(!isShuffle);
   };
@@ -143,7 +166,7 @@ function Player({
           className={`ctrl-btn shuffle-btn ${isShuffle ? "active" : ""}`}
           onClick={toggleShuffle} 
           aria-label="Shuffle"
-          title="Shuffle"
+          title={isShuffle ? "Shuffle: On" : "Shuffle: Off"}
         >
           <FaRandom />
         </button>
@@ -165,6 +188,33 @@ function Player({
           <FaRedoAlt />
           {repeatMode === "one" && <span className="repeat-indicator">1</span>}
         </button>
+      </div>
+
+      <div className="volume-control">
+        <button 
+          className="volume-btn"
+          onClick={toggleMute}
+          onMouseEnter={() => setShowVolume(true)}
+          aria-label={isMuted ? "Unmute" : "Mute"}
+        >
+          {isMuted || volume === 0 ? <FaVolumeMute /> : <FaVolumeUp />}
+        </button>
+        <div 
+          className={`volume-slider-container ${showVolume ? "show" : ""}`}
+          onMouseEnter={() => setShowVolume(true)}
+          onMouseLeave={() => setShowVolume(false)}
+        >
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={isMuted ? 0 : volume}
+            onChange={handleVolumeChange}
+            className="volume-slider"
+            aria-label="Volume"
+          />
+          <span className="volume-value">{isMuted ? 0 : volume}%</span>
+        </div>
       </div>
 
       <audio ref={audioRef} />
