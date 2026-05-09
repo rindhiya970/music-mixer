@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;600&display=swap');
 
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Fredoka One', cursive;
+  font-family: 'Fredoka', cursive;
   margin: 0;
   min-height: 100vh;
   background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
@@ -19,39 +19,59 @@ body::after {
   content: '';
   position: fixed;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.35;
+  filter: blur(100px);
+  opacity: 0.4;
   pointer-events: none;
   z-index: 0;
-  animation: blob-drift 8s ease-in-out infinite alternate;
+  animation: blob-drift 12s ease-in-out infinite alternate;
 }
 
 body::before {
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   background: radial-gradient(circle, #ff6f61, #a78bfa);
-  top: -100px;
-  left: -100px;
+  top: -150px;
+  left: -150px;
 }
 
 body::after {
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   background: radial-gradient(circle, #34d399, #fbbf24);
-  bottom: -80px;
-  right: -80px;
-  animation-delay: 3s;
+  bottom: -100px;
+  right: -100px;
+  animation-delay: 4s;
 }
 
 @keyframes blob-drift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(40px, 30px) scale(1.1); }
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(50px, 40px) scale(1.15); }
+  100% { transform: translate(-30px, 20px) scale(0.95); }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ff6f61, #a78bfa);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #a78bfa, #34d399);
 }
 
 #root {
   position: relative;
   z-index: 1;
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 0 1rem 4rem;
+  padding: 0 1rem 5rem;
 }
