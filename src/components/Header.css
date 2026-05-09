@@ -1,34 +1,118 @@
 .header {
   text-align: center;
-  padding: 2rem 1rem 1.5rem;
-  font-family: 'Fredoka One', cursive;
+  padding: 2.5rem 1rem 2rem;
+  font-family: 'Fredoka', cursive;
+  position: relative;
 }
 
 .header-emoji {
-  font-size: 2.8rem;
-  animation: bounce 1.2s ease-in-out infinite alternate;
+  font-size: 3.5rem;
+  animation: bounce 1.5s ease-in-out infinite alternate;
   display: inline-block;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
 }
 
 @keyframes bounce {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-10px); }
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+  100% { transform: translateY(0) rotate(0deg); }
 }
 
 .header h1 {
-  margin: 0.3rem 0 0.2rem;
-  font-size: 2.8rem;
-  background: linear-gradient(135deg, #ff6f61, #a78bfa, #34d399);
+  margin: 0.5rem 0 0.3rem;
+  font-size: 3.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff6f61, #a78bfa, #34d399, #fbbf24);
+  background-size: 200% 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: 1px;
-  text-shadow: none;
+  letter-spacing: 2px;
+  animation: gradient-shift 4s ease infinite;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .header-sub {
-  margin: 0;
-  font-size: 1rem;
-  color: rgba(255,255,255,0.8);
-  letter-spacing: 1px;
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 2px;
+  text-transform: lowercase;
+  animation: fade-in 1s ease-in;
+}
+
+.song-count {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.95);
+  border: 2px solid rgba(255,255,255,0.3);
+  animation: fade-in 1.2s ease-in;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cute sparkles decoration */
+.header::before,
+.header::after {
+  content: '✨';
+  position: absolute;
+  font-size: 1.5rem;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.header::before {
+  left: 15%;
+  top: 20%;
+  animation-delay: 0.5s;
+}
+
+.header::after {
+  right: 15%;
+  top: 25%;
+  animation-delay: 1.5s;
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .header-emoji {
+    font-size: 2.5rem;
+  }
+  
+  .header-sub {
+    font-size: 0.95rem;
+  }
+  
+  .song-count {
+    font-size: 0.8rem;
+    padding: 0.4rem 1rem;
+  }
+  
+  .header::before,
+  .header::after {
+    display: none;
+  }
 }
