@@ -1,88 +1,174 @@
 .search-bar {
   position: relative;
-  max-width: 500px;
-  margin: 0 auto 2rem;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto 2.5rem;
   display: flex;
   align-items: center;
-  animation: search-appear 0.6s ease-out;
+  animation: search-appear 0.7s ease-out;
+  padding: 0 1rem;
 }
 
 @keyframes search-appear {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-30px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .search-icon {
   position: absolute;
-  left: 1.2rem;
-  color: #666;
-  font-size: 1rem;
+  left: 2rem;
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem;
   pointer-events: none;
   z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus ~ .search-icon,
+.search-input:not(:placeholder-shown) ~ .search-icon {
+  color: #a78bfa;
+  transform: scale(1.1);
 }
 
 .search-input {
   width: 100%;
-  padding: 0.9rem 3rem 0.9rem 3rem;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-radius: 24px;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(12px);
-  font-size: 1rem;
+  padding: 1rem 3.5rem;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 28px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  font-size: 1.05rem;
   font-family: 'Fredoka', cursive;
-  color: #1a1a2e;
+  font-weight: 500;
+  color: #fff;
   outline: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
 .search-input::placeholder {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.6);
+  font-weight: 400;
+}
+
+.search-input:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.4);
 }
 
 .search-input:focus {
-  background: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.35);
   border-color: #a78bfa;
-  box-shadow: 0 6px 20px rgba(167,139,250,0.3);
-  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(167,139,250,0.4), 0 0 0 4px rgba(167,139,250,0.2);
+  transform: translateY(-3px);
 }
 
 .clear-search {
   position: absolute;
-  right: 1rem;
-  width: 32px;
-  height: 32px;
+  right: 1.8rem;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.2);
   border: none;
-  color: #666;
-  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  font-size: 1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
 }
 
 .clear-search:hover {
   background: #ff6f61;
   color: #fff;
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(90deg);
+  box-shadow: 0 4px 12px rgba(255, 111, 97, 0.4);
 }
 
-@media (max-width: 600px) {
+.clear-search:active {
+  transform: scale(1.05) rotate(90deg);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .search-bar {
+    max-width: 550px;
+  }
+}
+
+/* Mobile landscape and portrait */
+@media (max-width: 768px) {
   .search-bar {
     max-width: 100%;
+    margin-bottom: 2rem;
   }
   
   .search-input {
+    font-size: 1rem;
+    padding: 0.95rem 3.2rem;
+  }
+  
+  .search-icon {
+    left: 1.8rem;
+    font-size: 1rem;
+  }
+  
+  .clear-search {
+    right: 1.6rem;
+    width: 34px;
+    height: 34px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .search-bar {
+    padding: 0 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-input {
+    font-size: 0.95rem;
+    padding: 0.9rem 3rem 0.9rem 2.8rem;
+    border-width: 2px;
+  }
+  
+  .search-icon {
+    left: 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .clear-search {
+    right: 1.3rem;
+    width: 32px;
+    height: 32px;
     font-size: 0.9rem;
-    padding: 0.8rem 2.8rem 0.8rem 2.8rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .search-input {
+    font-size: 0.9rem;
+    padding: 0.85rem 2.8rem 0.85rem 2.5rem;
+  }
+  
+  .search-icon {
+    left: 1.3rem;
+  }
+  
+  .clear-search {
+    right: 1.1rem;
+    width: 30px;
+    height: 30px;
   }
 }
