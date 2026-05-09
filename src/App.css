@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 280px; /* Space for fixed player */
 }
 
 .song-list {
@@ -11,4 +12,16 @@
   gap: 1.2rem;
   padding: 1rem 0.5rem 0.5rem;
   width: 100%;
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    padding-bottom: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-layout {
+    padding-bottom: 320px;
+  }
 }
