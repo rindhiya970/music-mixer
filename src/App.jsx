@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
 import SongList from "./components/SongList";
 import Player from "./components/Player";
 import Playlist from "./components/Playlist";
@@ -14,6 +15,13 @@ function App() {
   const [playlist, setPlaylist] = useState([]);
   const [playQueue, setPlayQueue] = useState([...Array(songs.length).keys()]);
   const [showPlaylist, setShowPlaylist] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Filter songs based on search query
+  const filteredSongs = songs.filter(song => 
+    song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    song.artist.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   // Update play queue when shuffle changes
   useEffect(() => {
@@ -50,14 +58,27 @@ function App() {
         setShowPlaylist={setShowPlaylist}
         playlistCount={playlist.length}
       />
-      <SongList
-        songs={songs}
-        currentSongIndex={currentSongIndex}
-        setCurrentSongIndex={setCurrentSongIndex}
-        setIsPlaying={setIsPlaying}
-        addToPlaylist={addToPlaylist}
-        playlist={playlist}
+      <SearchBar 
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
+      {filteredSongs.length === 0 ? (
+        <div className="no-results">
+          <div className="no-results-icon">🔍</div>
+          <p>No songs found</p>
+          <span>Try searching for something else</span>
+        </div>
+      ) : (
+        <SongList
+          songs={filteredSongs}
+          currentSongIndex={currentSongIndex}
+          setCurrentSongIndex={setCurrentSongIndex}
+          setIsPlaying={setIsPlaying}
+          addToPlaylist={addToPlaylist}
+          playlist={playlist}
+          allSongs={songs}
+        />
+      )}
       <Player
         song={songs[currentSongIndex]}
         isPlaying={isPlaying}
