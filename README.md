@@ -28,14 +28,8 @@ A beautiful, feature-rich music player built with React and Vite. Enjoy your fav
 - **Clear Button** - Quick search reset
 - **No Results State** - Friendly message when nothing matches
 
-### 🎨 Beautiful UI
-- **Glassmorphism Design** - Modern frosted glass effects
-- **Gradient Animations** - Smooth color transitions
-- **Responsive Layout** - Works on all screen sizes
-- **Fixed Player** - Always accessible at the bottom
-- **Card Animations** - Staggered entrance effects
-- **Hover Effects** - Interactive feedback
-- **Custom Scrollbar** - Styled to match the theme
+
+
 
 ### 🎯 User Experience
 - **Currently Playing Indicator** - Animated equalizer bars
