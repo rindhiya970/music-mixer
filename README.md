@@ -1,8 +1,8 @@
-# 🎵 Vibe Player
+#  Vibe Player
 
 A beautiful, feature-rich music player built with React and Vite. Enjoy your favorite tunes with a cute, modern interface!
 
-## ✨ Features
+##  Features
 
 ### Music Playback
 - **20 Songs Library** - Expanded collection with creative titles and artists
