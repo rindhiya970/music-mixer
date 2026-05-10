@@ -31,13 +31,6 @@ A beautiful, feature-rich music player built with React and Vite. Enjoy your fav
 
 
 
-### 🎯 User Experience
-- **Currently Playing Indicator** - Animated equalizer bars
-- **Song Cards** - Beautiful album art display
-- **Add to Playlist Button** - Quick access on hover
-- **Playlist Badge** - Shows number of saved songs
-- **Keyboard Accessible** - Full keyboard navigation support
-
 ## Getting Started
 
 ### Installation
