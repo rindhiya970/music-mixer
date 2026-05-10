@@ -75,15 +75,7 @@ music-player/
 │   └── songs/                  # Audio files
 └── package.json
 ```
-
-##  Color Palette
-
-The app uses a vibrant, cute color scheme:
-- Primary: `#ff6f61` (Coral)
-- Secondary: `#a78bfa` (Purple)
-- Accent: `#34d399` (Green)
-- Highlight: `#fbbf24` (Yellow)
-- Background: Dark gradient (`#1a1a2e` → `#0f3460`)
+ 
 
 ## Adding More Songs
 
@@ -110,13 +102,6 @@ Then add the corresponding audio file to `public/songs/` and cover image to `pub
 - **CSS3** - Styling with animations
 - **HTML5 Audio API** - Audio playback
 
-##  Responsive Design
-
-The player is fully responsive and works beautifully on:
-- Desktop (1920px+)
-- Laptop (1024px - 1919px)
-- Tablet (768px - 1023px)
-- Mobile (320px - 767px)
 
 ## Future Enhancements
 
